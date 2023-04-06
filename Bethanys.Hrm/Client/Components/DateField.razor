@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+
+<input type="date" value="@Date?.ToString(dateFormatString)"
+       format-value="@dateFormatString" @onchange="OnDateChanged" />
+
+<button class="btn btn-sm" @onclick="Revert">
+    <i class="fas fa-undo"></i>
+</button>
+
+@code { private string dateFormatString = "yyyy-MM-dd";
+    private DateTimeOffset? origDate;
+
+    [Parameter]
+    public DateTimeOffset? Date { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTimeOffset?> DateChanged { get; set; }
+
+    private async Task Revert()
+    {
+        if (Date != origDate)
+        {
+            Date = origDate;
+            await DateChanged.InvokeAsync(Date);
+        }
+    }
+
+    public async Task OnDateChanged(ChangeEventArgs e)
+    {
+        var date = (string)e.Value;
+        var newDate = DateTimeOffset.Parse(date);
+        Date = newDate;
+        await DateChanged.InvokeAsync(Date);
+    }
+
+    protected override void OnInitialized()
+    {
+        origDate = Date;
+    } }
