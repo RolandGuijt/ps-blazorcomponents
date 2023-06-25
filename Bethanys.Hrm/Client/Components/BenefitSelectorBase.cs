@@ -7,16 +7,16 @@ namespace Bethanys.Hrm.Client.Components
     public class BenefitSelectorBase : ComponentBase
     {
         protected bool SaveButtonDisabled { get; set; } = true;
-        protected IEnumerable<BenefitEmployeeModel> Benefits { get; set; }
+        protected IEnumerable<BenefitEmployeeModel> Benefits { get; set; } = new List<BenefitEmployeeModel>();
 
         [Parameter]
-        public EmployeeModel Employee { get; set; }
+        public EmployeeModel Employee { get; set; } = new EmployeeModel();
 
         [Parameter]
         public EventCallback<bool> OnPremiumToggle { get; set; }
 
         [Inject]
-        public IBenefitApiService BenefitApiService { get; set; }
+        public IBenefitApiService BenefitApiService { get; set; } = default!;
 
         protected async override Task OnInitializedAsync()
         {
@@ -26,7 +26,7 @@ namespace Bethanys.Hrm.Client.Components
 
         public async Task CheckBoxChanged(ChangeEventArgs e, BenefitEmployeeModel benefit)
         {
-            var newValue = (bool)e.Value;
+            var newValue = e.Value != null && (bool)e.Value;
             benefit.Selected = newValue;
             SaveButtonDisabled = false;
 

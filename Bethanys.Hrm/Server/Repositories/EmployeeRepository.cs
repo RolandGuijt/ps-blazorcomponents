@@ -11,6 +11,18 @@ namespace Bethanys.Hrm.Server.Repositories
                 EmployeeId = 1,
                 FirstName = "Bethany",
                 LastName = "Smith"
+            },
+            new EmployeeModel
+            {
+                EmployeeId = 2,
+                FirstName = "John",
+                LastName = "Baker"
+            },
+            new EmployeeModel
+            {
+                EmployeeId = 3,
+                FirstName = "Sal",
+                LastName = "Beneke"
             }
         };
 
