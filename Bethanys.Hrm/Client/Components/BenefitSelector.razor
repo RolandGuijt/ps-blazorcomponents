@@ -1,6 +1,4 @@
-﻿@inherits BenefitSelectorBase
-
-@if (Benefits == null)
+﻿@if (benefits == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -9,38 +7,56 @@ else
     <div class="row">
         <div class="col-md-8">
             <table class="table table-sm">
+                <thead>
                 <tr>
                     <th class="w-auto"></th>
                     <th class="w-auto">Benefit</th>
                     <th class="w-25">Start date</th>
                     <th class="w-25">End date</th>
                 </tr>
-                @foreach (var benefit in Benefits)
-                {
-                    <tr @key="benefit">
-                        <td>
-                            <input type="checkbox" checked="@benefit.Selected"
-                                   @onchange="e => CheckBoxChanged(e, benefit)" />
-                        </td>
-                        <td>@benefit.Description</td>
-
-                        @if (benefit.Selected)
-                        {
-                            <td>@benefit.StartDate</td>
-                            <td><DateField @bind-Date="benefit.EndDate"></DateField></td>
-                        }
-                        else
-                        {
-                            <td></td>
-                            <td></td>
-                        }
-                    </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var benefit in benefits)
+                    {
+                        <tr @key="benefit">
+                            <td>
+                                <input type="checkbox"
+                                    checked="@benefit.Selected"
+                                    @onchange="e => CheckBoxChanged(e, benefit)"/>
+                            </td>
+                            <td>@benefit.Description</td>
+                            @if (benefit.Selected)
+                            {
+                                <td>@benefit.StartDate?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <DateField @ref="dateFieldRef"
+                                        @bind-Date="benefit.EndDate" 
+                                        placeHolder = "Enter a date"
+                                        required = "required"
+                                        maxLength = "50"
+                                    />
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
         <div class="col-md-4 mt-1">
-            <button class="btn btn-primary" disabled="@SaveButtonDisabled" 
-                    @onclick="SaveClick">Save</button>
+            <button class="btn @Theme.ButtonClass" 
+                disabled="@SaveButtonDisabled"
+                @onclick="SaveClick">
+                Save
+            </button>
+            <button class="btn @Theme.ButtonClass"
+                @onclick="RevertClick">
+                Revert
+            </button>
         </div>
     </div>
 }

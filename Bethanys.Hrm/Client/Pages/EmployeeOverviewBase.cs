@@ -7,9 +7,9 @@ namespace Bethanys.Hrm.Client.Pages
     public class EmployeeOverviewBase : ComponentBase
     {
         [Inject]
-        public IEmployeeApiService EmployeeApiService { get; set; } = default!;
+        public IEmployeeApiService EmployeeApiService { get; set; }
 
-        public List<EmployeeModel> Employees { get; set; } = new List<EmployeeModel>();
+        public List<EmployeeModel> Employees { get; set; } = null;
 
         protected override async Task OnInitializedAsync()
         {

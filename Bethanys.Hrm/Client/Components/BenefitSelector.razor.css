@@ -1,0 +1,7 @@
+﻿th {
+    color: purple
+}
+
+::deep input {
+    color: purple
+}

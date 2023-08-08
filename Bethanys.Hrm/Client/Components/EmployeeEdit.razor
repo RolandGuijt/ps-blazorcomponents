@@ -1,0 +1,28 @@
+﻿<section class="employee-edit">
+        <h1 class="page-title">Details for @Employee.FirstName @Employee.LastName</h1>
+
+        <EditForm Model="@Employee" OnValidSubmit="@HandleValidSubmit" 
+            OnInvalidSubmit="@HandleInvalidSubmit">
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group row">
+                <label for="lastName" class="col-sm-3">Last name: </label>
+                <InputText id="lastName" class="form-control col-sm-8" 
+                    @bind-Value="@Employee.LastName" placeholder="Enter last name"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" 
+                    For="@(() => Employee.LastName)" />
+            </div>
+            <div class="form-group row">
+                <label for="firstName" class="col-sm-3">First name: </label>
+                <InputText id="firstName" class="form-control col-sm-8" 
+                    @bind-Value="@Employee.FirstName" placeholder="Enter first name"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" 
+                    For="@(() => Employee.FirstName)" />
+            </div>
+
+            <button type="submit" class="btn btn-primary edit-btn">Save employee</button>
+            <a class="btn btn-outline-primary edit-outline-btn" 
+                @onclick="@NavigateToOverview">Cancel</a>
+        </EditForm>
+</section>

@@ -1,25 +1,31 @@
-﻿@inherits EmployeeRowBase
-
-@{
+﻿@{
     var cssClass = Employee.HasPremiumBenefits ? "table-success" : "";
 }
 
 <tr class="@cssClass">
-    <td class="align-middle"><img src="@($"images/{Employee.EmployeeId}-small.jpg")" class="rounded-circle" /></td>
+    <td class="align-middle">
+        <img src="@($"images/{Employee.EmployeeId}-small.jpg")" class="rounded-circle" />
+    </td>
     <td class="align-middle">@Employee.EmployeeId</td>
     <td class="align-middle">@Employee.FirstName</td>
     <td class="align-middle">@Employee.LastName</td>
     <td class="align-middle">
-        <a class="btn btn-primary table-btn" @onclick="e => Employee.ShowBenefits = !Employee.ShowBenefits">
+        <a class="btn btn-primary table-btn"
+            @onclick="e => showBenefits = !showBenefits">
             <i class="fas fa-thumbs-up"></i>
         </a>
     </td>
+    <td>
+        <a href="/employeedetail/@Employee.EmployeeId">Details</a>
+    </td>
 </tr>
-@if (Employee.ShowBenefits)
+
+@if (showBenefits)
 {
     <tr>
-        <td colspan="5">
-            <BenefitSelector Employee="Employee" OnPremiumToggle="@PremiumToggle" />
+        <td colspan="6">
+            <BenefitSelector Employee="@Employee"
+                OnPremiumToggle="PremiumToggle"/>
         </td>
     </tr>
 }
