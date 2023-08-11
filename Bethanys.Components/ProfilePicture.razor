@@ -1,0 +1,9 @@
+﻿@inherits ProfilePictureBase
+
+<div class="profile-picture">
+    <img class="img-responsive account-photo @CssClass" 
+         src="images/profilePicture.jpg"
+         @onclick = "@(() =>
+            CssClass = CssClass == "circle" ? "" : "circle")"/>
+    <div class="mt-2 text-center">@ChildContent</div>
+</div>

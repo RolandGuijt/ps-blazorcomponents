@@ -1,6 +1,8 @@
-﻿namespace Bethanys.Hrm.Shared
+﻿using Bethanys.Components;
+
+namespace Bethanys.Hrm.Shared
 {
-    public class BenefitEmployeeModel
+    public class BenefitEmployeeModel: ITableModel
     {
         public int BenefitId { get; set; }
 
@@ -9,5 +11,7 @@
         public DateTimeOffset? StartDate { get; set; }
         public DateTimeOffset? EndDate { get; set; }
         public bool Premium { get; set; }
+        public bool HighLightRow => Premium;
+        public bool ShowChildTemplate => false;
     }
 }

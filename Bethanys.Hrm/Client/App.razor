@@ -1,6 +1,9 @@
 ﻿<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <CascadingValue Value="theme" IsFixed="true">
+            <RouteView RouteData="@routeData" 
+                DefaultLayout="@typeof(MainLayout)" />
+        </CascadingValue>
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
@@ -10,3 +13,7 @@
         </LayoutView>
     </NotFound>
 </Router>
+
+@code {
+    private Theme theme = new Theme();
+}

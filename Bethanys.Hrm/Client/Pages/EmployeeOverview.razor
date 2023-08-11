@@ -1,5 +1,5 @@
 ﻿@page "/employeeoverview"
-@using Bethanys.Hrm.Client.Components
+@using Bethanys.Hrm.Shared;
 @inherits EmployeeOverviewBase
 
 <h1 class="page-title">All employees</h1>
@@ -10,21 +10,35 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th></th>
+    <TableTemplate Items="Employees" IsSmall="false">
+        <TableHeader>
                 <th>Employee ID</th>
                 <th>First name</th>
                 <th>Last name</th>
                 <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var employee in Employees)
-            {
-                <EmployeeRow Employee="@employee"></EmployeeRow>
-            }
-        </tbody>
-    </table>
+        </TableHeader>
+        <RowTemplate>
+            <td class="align-middle">
+                <img src="@($"images/{context.EmployeeId}-small.jpg")" class="rounded-circle" />
+            </td>
+            <td class="align-middle">@context.EmployeeId</td>
+            <td class="align-middle">@context.FirstName</td>
+            <td class="align-middle">@context.LastName</td>
+            <td class="align-middle">
+                <a class="btn btn-primary table-btn"
+                    @onclick="e => context.ShowBenefits = !context.ShowBenefits">
+                    <i class="fas fa-thumbs-up"></i>
+                </a>
+            </td>
+            <td>
+                <a href="/employeedetail/@context.EmployeeId">Details</a>
+            </td>
+        </RowTemplate>
+        <ChildTemplate>
+            <td colspan="6">
+                <BenefitSelector Employee="context" 
+                    OnPremiumToggle="@(b => context.HasPremiumBenefits = b)" />
+            </td>
+        </ChildTemplate>
+    </TableTemplate>
 }
