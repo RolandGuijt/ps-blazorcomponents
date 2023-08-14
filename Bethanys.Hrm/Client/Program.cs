@@ -1,3 +1,4 @@
+using Bethanys.Components;
 using Bethanys.Hrm.Client;
 using Bethanys.Hrm.Client.ApiServices;
 using Microsoft.AspNetCore.Components.Web;
